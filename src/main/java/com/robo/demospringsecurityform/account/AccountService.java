@@ -5,12 +5,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService implements UserDetailsService {
 
     @Autowired AccountRepository accountRepository;
+    @Autowired PasswordEncoder passwordEncoder;
 
 //    DAO - DB Access Object, DB에 접근하는 객체
 //    UserDetailsService - DB 에서 유저 정보를 가져와서 쓰기 좋게(UserDetails 오브젝트) 변환하는 역할
@@ -29,7 +31,7 @@ public class AccountService implements UserDetailsService {
     }
 
     public Account createNew(Account account) {
-        account.encodePassword();
+        account.encodePassword(passwordEncoder);
         return this.accountRepository.save(account);
     }
 }
