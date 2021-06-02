@@ -1,6 +1,8 @@
 package com.robo.demospringsecurityform.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -8,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
+// 이런 식으로 Order 를 주어 SecurityConfig 를 여러 개 사용 가능하
+@Order(Ordered.LOWEST_PRECEDENCE - 15)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override

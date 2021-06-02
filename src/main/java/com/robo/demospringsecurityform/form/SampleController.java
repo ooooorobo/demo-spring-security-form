@@ -37,7 +37,7 @@ public class SampleController {
     public String dashboard(Model model, Principal principal) {
         model.addAttribute("message", "Hello " + principal.getName());
         // ThreadLocal 에 어카운트 등록
-        AccountContext.setAccount(accountRepository.findByUsername(principal.getName()));
+//        AccountContext.setAccount(accountRepository.findByUsername(principal.getName()));
         sampleService.dashboard();
         return "dashboard"; // View 이름 return
     }
