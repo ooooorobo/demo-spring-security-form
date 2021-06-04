@@ -15,11 +15,11 @@ public class SampleService {
 
     public void dashboard() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        // 사용자 정보
+        // 사용자 정보 가져오기
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        // 사용자 권한
+        // 사용자 권한 가져오기
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        // 인증 여부
+        // 인증 여부 확인
         boolean authenticated = authentication.isAuthenticated();
 
         // ThreadLocal 로 가져오기
