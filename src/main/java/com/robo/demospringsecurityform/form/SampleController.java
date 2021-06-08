@@ -2,6 +2,7 @@ package com.robo.demospringsecurityform.form;
 
 import com.robo.demospringsecurityform.account.AccountContext;
 import com.robo.demospringsecurityform.account.AccountRepository;
+import com.robo.demospringsecurityform.common.SecurityLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,8 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.concurrent.Callable;
 
 @Controller
 public class SampleController {
@@ -54,4 +57,21 @@ public class SampleController {
         return "admin"; // View 이름 return
     }
 
+    @GetMapping("/async-handler")
+    @ResponseBody // return 값을 응답의 본문으로 사용
+    public Callable<String> asyncHandler() {
+
+        // 톰캣이 할당해 준 NIO 스레드
+        SecurityLogger.log("MVC");
+
+        return new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+
+                // 별도 스레드에서 동작
+                SecurityLogger.log("Callable");
+                return "Async handler";
+            }
+        };
+    }
 }
