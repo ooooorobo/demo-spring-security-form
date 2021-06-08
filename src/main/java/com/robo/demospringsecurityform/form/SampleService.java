@@ -2,6 +2,8 @@ package com.robo.demospringsecurityform.form;
 
 import com.robo.demospringsecurityform.account.Account;
 import com.robo.demospringsecurityform.account.AccountContext;
+import com.robo.demospringsecurityform.common.SecurityLogger;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,5 +28,10 @@ public class SampleService {
 //        Account account = AccountContext.getAccount();
         System.out.println("-----------------");
         System.out.println(userDetails.getUsername());
+    }
+
+    @Async // 별도 스레드를 만들어 비동기로 호출시킴
+    public void asyncService() {
+        SecurityLogger.log("Async Service");
     }
 }
